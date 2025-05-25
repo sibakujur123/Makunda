@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: #fff;
+            min-height: 100vh;
+            background: url(/images.jpeg);
+            backdrop-filter: blur(50);
+        }
+
+        .photo-container {
+            width: 96%;
+            margin: 20px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            animation: fadeIn 1.5s;
+            position: relative;
+  text-align: center;
+  color: white;
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+           
+        }
+
+        .photo-container:hover img {
+            transform: scale(1.05);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .calculator {
+            background: #2d2d2d;
+            padding: 25px;
+            border-radius: 12px;
+            width: 94%;
+            box-shadow: 0 0 15px rgba(0,0,0,0.4);
+            transition: transform 0.3s;
+            background: url(/images.jpeg);
+                border:2px solid #EAF1DB;
+
+        }
+
+        .calculator:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            color: #00ffaa;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ccc;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid#D2BBA9;
+            border-radius: 5px;
+            background: transparent;
+            outline:none;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background: #00ffaa;
+            color: #1a1a1a;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        button:hover {
+            background: #00cc88;
+            box-shadow: 0 0 10px rgba(0,255,170,0.5);
+        }
+
+        .result {
+            margin-top: 15px;
+            padding: 10px;
+            background: #81B21C00;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .help-btn {
+            background: #ff9900;
+            margin-top: 10px;
+        }
+
+        .help-btn:hover {
+            background: ##0015FF;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: url(/images.jpeg);
+            padding: 20px;
+            border-radius: 10px;
+            width: 94%;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            cursor: pointer;
+            font-size: 24px;
+            color: #fff;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 10; }
+        }
+
+        .help-text {
+            color: #ccc;
+            line-height: 1.6;
+        }
+        .centered {
+            font-size: 50px;
+            font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.i{
+    border:2px solid #FFFFFF;
+                border-radius: 15px;
+
+}
+#slideshow {
+            width: 96%;   /* Adjust as needed */
+            height: 400px;  /* Adjust as needed */
+            background-size: cover;
+            background-position: center;
+            transition: opacity 1s ease-in-out;
+    </style>
+</head>
+<body>
+    <div id="slideshow"class="photo-container">
+        
+    </div>
+    <div class="photo-container">
+    <img class="i"src="/images.jpeg" alt="Your Poster">
+    <div class="centered">Makunda</div>
+</div>
+
+    <div class="container">
+        <!-- Percentage Calculator 1 -->
+        <div class="calculator">
+            <h2>Percentage Calculator 1</h2>
+            <div class="input-group">
+                <label>Total Value (कुल मूल्य)</label>
+                <input type="number" id="total1">
+            </div>
+            <div class="input-group">
+                <label>Percentage (%)</label>
+                <input type="number" id="percentage1">
+            </div>
+            <button onclick="calculatePercentage1()">Calculate</button>
+            <button class="help-btn" onclick="showHelp(1)">Kaise Use Karen?</button>
+            <div class="result" id="result1"></div>
+        </div>
+
+        <!-- Percentage Calculator 2 -->
+        <div class="calculator">
+            <h2>Percentage Calculator 2</h2>
+            <div class="input-group">
+                <label>Original Value (मूल मूल्य)</label>
+                <input type="number" id="original">
+            </div>
+            <div class="input-group">
+                <label>New Value (नया मूल्य)</label>
+                <input type="number" id="new">
+            </div>
+            <button onclick="calculatePercentage2()">Calculate % Change</button>
+            <button class="help-btn" onclick="showHelp(2)">Kaise Use Karen?</button>
+            <div class="result" id="result2"></div>
+        </div>
+
+        <!-- KG/Gram Calculator -->
+        <div class="calculator">
+            <h2>KG/Gram Calculator</h2>
+            <div class="input-group">
+                <label>Price per KG (कीमत प्रति किलो)</label>
+                <input type="number" id="pricePerKg">
+            </div>
+            <div class="input-group">
+                <label>Quantity (मात्रा)</label>
+                <input type="number" id="quantity">
+                <select id="unit">
+                    <option value="kg">KG</option>
+                    <option value="gram">Gram</option>
+                </select>
+            </div>
+            <button onclick="calculatePrice()">Calculate Total</button>
+            <button class="help-btn" onclick="showHelp(3)">Kaise Use Karen?</button>
+            <div class="result" id="result3"></div>
+        </div>
+    </div>
+
+    <!-- Help Modals -->
+    <div id="helpModal1" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal(1)">&times;</span>
+            <h3>Percentage Calculator 1 - Kaise Use Karen</h3>
+            <p class="help-text">
+                1. "Total Value" me apna poora number dalo (जैसे 1000)<br>
+                2. "Percentage" me wo percentage dalo jo nikalna hai (जैसे 20)<br>
+                3. Calculate button dabao, result dikhega!
+            </p>
+        </div>
+    </div>
+
+    <div id="helpModal2" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal(2)">&times;</span>
+            <h3>Percentage Calculator 2 - Kaise Use Karen</h3>
+            <p class="help-text">
+                1. "Original Value" me purani value dalo (जैसे 500)<br>
+                2. "New Value" me nayi value dalo (जैसे 600)<br>
+                3. Calculate button dabao, percentage badhao/kam dikhega!
+            </p>
+        </div>
+    </div>
+
+    <div id="helpModal3" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal(3)">&times;</span>
+            <h3>KG/Gram Calculator - Kaise Use Karen</h3>
+            <p class="help-text">
+                1. "Price per KG" me ek kg ka dam dalo (जैसे 100)<br>
+                2. "Quantity" me apni matra dalo<br>
+                3. Choose KG ya Gram selector se<br>
+                4. Calculate dabao, total price dikhega!
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Percentage Calculator 1
+        function calculatePercentage1() {
+            const total = parseFloat(document.getElementById('total1').value);
+            const percentage = parseFloat(document.getElementById('percentage1').value);
+            
+            if(isNaN(total) || isNaN(percentage)) {
+                alert("Kripya sahi number dalen");
+                return;
+            }
+
+            const result = (total * percentage) / 100;
+            document.getElementById('result1').textContent = 
+                `Result: ₹${result.toFixed(2)} (${percentage}% of ₹${total})`;
+        }
+
+        // Percentage Calculator 2
+        function calculatePercentage2() {
+            const original = parseFloat(document.getElementById('original').value);
+            const newVal = parseFloat(document.getElementById('new').value);
+            
+            if(isNaN(original) || isNaN(newVal)) {
+                alert("Kripya sahi number dalen");
+                return;
+            }
+
+            const percentageChange = ((newVal - original) / original) * 100;
+            document.getElementById('result2').textContent = 
+                `Percentage Change: ${percentageChange.toFixed(2)}%`;
+                
+        }
+
+        // KG/Gram Calculator
+        function calculatePrice() {
+            const pricePerKg = parseFloat(document.getElementById('pricePerKg').value);
+            const quantity = parseFloat(document.getElementById('quantity').value);
+            const unit = document.getElementById('unit').value;
+            
+            if(isNaN(pricePerKg) || isNaN(quantity)) {
+                alert("Kripya sahi number dalen");
+                return;
+            }
+
+            const total = unit === 'kg' ? 
+                pricePerKg * quantity : 
+                (pricePerKg / 1000) * quantity;
+
+            document.getElementById('result3').textContent = 
+                `Total Price: ₹${total.toFixed(2)}`;
+        }
+
+        // Modal functions
+        function showHelp(calculatorNumber) {
+            document.getElementById(`helpModal${calculatorNumber}`).style.display = 'flex';
+        }
+
+        function closeModal(calculatorNumber) {
+            document.getElementById(`helpModal${calculatorNumber}`).style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if(event.target.className === 'modal') {
+                event.target.style.display = 'none';
+            }
+        }
+    </script>
+        <script>
+        // Array of image URLs
+        const images = [
+            '/IMG-20250518-WA0000.jpg',
+            '/IMG-20250518-WA0001.jpg',
+            '/IMG-20250518-WA0002.jpg',
+            '/IMG-20250518-WA0013.jpg',
+            '/IMG-20250518-WA0017.jpg',
+            '/IMG-20250518-WA0018.jpg',
+            '/IMG-20250518-WA0019.jpg',
+            '/IMG-20250518-WA0022.jpg'
+        ];
+
+        let currentIndex = 0;
+        const slideshow = document.getElementById('slideshow');
+
+        function changeImage() {
+            // Fade out
+            slideshow.style.opacity = 0;
+            
+            // Change image after fade-out completes
+            setTimeout(() => {
+                slideshow.style.backgroundImage = `url('${images[currentIndex]}')`;
+                // Fade in
+                slideshow.style.opacity = 1;
+                
+                // Update index for next image
+                currentIndex = (currentIndex + 1) % images.length;
+            }, 1000); // Matches transition duration
+        }
+
+        // Initialize first image
+        slideshow.style.backgroundImage = `url('${images[0]}')`;
+        currentIndex = 1;
+
+        // Start slideshow
+        setInterval(changeImage, 7000);
+    </script>
+
+</body>
+</html>
